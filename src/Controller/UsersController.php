@@ -74,16 +74,28 @@ class UsersController extends AppController{
     }
     
 
-    public function profil(){
-        
-        
-    
-    }
+    public function profil($id = null){
+        if(empty($id))
+       return $this->redirect(['controller' => 'festivals', 'action' => 'index']);
 
+       //On utilise le find dynamique FindByNomdecolonne
+       $p = $this->Users->find()
+       ->where(['Users.id' => $id]);
+
+       if($p->isEmpty()) :
+        $this->Flash->error('Utilisateur introuvable');
+        return $this->redirect([
+            'controller' => 'Posts',
+            'action' => 'index'
+        ]);
+    endif;
+       $this->set(['profil' => $p->first()]);
+       
+    }
 
     public function edit(){
+        
     }
-
    
 }
 

@@ -66,7 +66,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 ['controller' => 'Users', 'action' => 'logout'], ['class' => 'superclasse', 'escape' => false]) ?>
             <?= $this->Html->link(
                 '<i class="fa-solid fa-user" aria-hidden="true"></i>', 
-                ['controller' => 'Users', 'action' => 'profil'], ['class' => 'superclasse', 'escape' => false]) ?>
+                ['controller' => 'Users', 'action' => 'profil', $this->request->getAttribute('identity')->id], ['class' => 'superclasse', 'escape' => false]) ?>
+                
             <span>Hello <?= $this->request->getAttribute('identity')->pseudo ?></span>
             <?php endif; ?>
         </div>

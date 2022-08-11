@@ -1,0 +1,54 @@
+ //On récupère l'user avec son id
+        $user = $this->Users->find()
+        ->where(['Users.id' => $id]);
+
+        //On transmet à la vue
+        $this->set(['id' => $user]);
+
+
+<img src='/webroot/img/post/<?=($p->picture)?>' alt='<?=($p->description_img)?>'>
+
+
+public function add(){
+       //entité vide
+        $add = $this->Posts->newEmptyEntity();
+        //Si on arrive sur cette action  en méthod post
+        if($this->request->is('post')){
+            //on récupère les données de la requête pour les placer dans l'entité
+            $add = $this->Posts->patchEntity($add, $this->request->getData());
+            if(!$add->getErrors){
+            $image = $this->request->getData('picture');
+            $name = $image->getClientFilename();
+
+            
+            $type = $image->getClientMediaType();
+            $targetPath = WWW_ROOT. 'img'. DS . 'post'. DS. $name;
+            if ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
+                if (!empty($name)) {
+                    if ($image->getSize() > 0 && $image->getError() == 0) {
+                        $image->moveTo($targetPath); 
+                        $attachment['post'] = $name;
+                    }
+                }
+            }
+            if($name)
+            $image->moveTo($targetPath);
+
+            $add->picture = $name;
+        }
+            //Si la sauvegarde fonctionne
+            if($this->Posts->save($add)){
+                //On créé un mess de confirmation
+                $this->Flash->success('Enregistrement ok');
+                //On redirige vers l'accueil
+                return $this->redirect(['controller' => 'Posts', 'action' => 'index']);
+            }
+
+            //sinon (si ça a planté)
+            //On crée un mess d'erreur
+            $this->Flash->error('Impossible de sauvegarder, vérifier vos données');
+        }
+
+        //On transmet l'entité à la vue
+        $this->set(compact('add'));
+   }

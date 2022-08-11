@@ -1,28 +1,13 @@
 <?php ?> 
 
-<h1><?= $a->user->pseudo ?></h1>
+<h1><?= $post->user->pseudo ?></h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Créé</th>
-            <th>Post photo</th>
-            <th>Alt</th>
-            <th>Post description</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php foreach($tA as $s) : ?>
-            <tr>
-                <td><?= $s->id ?></td>
-                <td><?= $s->created ?></td>
-                <td><?= $s->picture ?></td>
-                <td><?= $s->description_img ?></td>
-                <td><?= $s->description ?></td>
-                
-            </tr>
-            <?php endforeach; ?>
-</tbody> 
-</table>
+    <div>
+            <p>Id : <?= $post->created ?></p>
+            <p>Créé : <?= $post->created ?></p>
+            <figure>
+                <?= $this->Html->image('post/'. $post->picture, ['alt' => $post->description_img])?>
+            </figure>
+            <p>Post description : <?= $post->description?></p>
+    </div>
+        

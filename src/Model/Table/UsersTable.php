@@ -15,6 +15,6 @@ class UsersTable extends Table{
         $this->addBehavior('Timestamp');
         
     }
-   
+  
    
 }
