@@ -29,7 +29,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'all.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -38,14 +38,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
+            <a href="<?= $this->Url->build('/') ?>">
+            
+            <span>Cake</span>PHP</a>
         </div>
         <div class="top-nav-links">
 
-        <?= $this->Html->link('Accueil', ['controller' => 'Festivals', 'action' => 'index']) ?>
+        
+        <?php //si on n'est pas connecté
+           if($this->request->getAttribute('identity') == null) : ?>
+        <?= $this->Html->link('Signup',
+         ['controller' => 'Users', 'action' => 'new'], ['class' => 'superclasse', 'escape' => false]) ?>
+        <?= $this->Html->link('Se connecter</i>', 
+        ['controller' => 'Users', 'action' => 'login'], ['class' => 'superclasse', 'escape' => false]) ?>
 
-        <?= $this->Html->link('Créer un compte', ['controller' => 'Users', 'action' => 'new']) ?>
-        <?= $this->Html->link('Se connecter', ['controller' => 'Users', 'action' => 'login']) ?>
+        <?php else : ?>
+           
+            <?= $this->Html->link('
+        <i class="fa-solid fa-house" aria-hidden="true"></i>',
+         ['controller' => 'Posts', 'action' => 'index'], ['class' => 'superclasse', 'escape' => false]) ?>
+
+            <?= $this->Html->link(
+                '<i class="fa-solid fa-plus" aria-hidden="true"></i>', 
+                ['controller' => 'Posts', 'action' => 'add'], ['class' => 'superclasse', 'escape' => false]) ?>
+             <?= $this->Html->link(
+                '<i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>', 
+                ['controller' => 'Users', 'action' => 'logout'], ['class' => 'superclasse', 'escape' => false]) ?>
+            <?= $this->Html->link(
+                '<i class="fa-solid fa-user" aria-hidden="true"></i>', 
+                ['controller' => 'Users', 'action' => 'profil'], ['class' => 'superclasse', 'escape' => false]) ?>
+            <span>Hello <?= $this->request->getAttribute('identity')->pseudo ?></span>
+            <?php endif; ?>
         </div>
     </nav>
     <main class="main">

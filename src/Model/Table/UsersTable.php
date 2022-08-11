@@ -5,6 +5,7 @@ namespace App\Model\Table;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+
 class UsersTable extends Table{
 
     public function initialize(array $c): void{
@@ -14,14 +15,6 @@ class UsersTable extends Table{
         $this->addBehavior('Timestamp');
         
     }
-    //on définit les élèments de validation qui seront appelés automatiquement
-    public function validationDefault(Validator $v) : Validator{
-
-        $v
-            ->notEmptyString('pseudo')
-            ->maxLength('pseudo', 20);
-
-        return $v;
-    
-    }
+   
+   
 }

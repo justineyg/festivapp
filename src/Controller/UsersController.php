@@ -1,57 +1,90 @@
-<?php
+<?php 
 
 namespace App\Controller;
-
-use Authentication\Authenticator\Result;
 use Cake\Event\EventInterface;
+use phpDocumentor\Reflection\Types\Null_;
 
 class UsersController extends AppController{
 
-    public function beforeFilter(\Cake\Event\EventInterface $e)
-    {
+    public function beforeFilter(\Cake\Event\EventInterface $e){
         parent::beforeFilter($e);
 
-        //autorise certaines actions sans-être connecté (seulement pour ce controller)
-        $this->Authentication->addUnauthenticatedActions(['new', 'login']);
+        //autorise l'accès à l'action login sans être connecté
+        $this->Authentication->addUnauthenticatedActions(['login', 'new']);
+    }
+
+
+    public function login(){
+        if($this->request->is(['post'])){
+            //on recup le match des identifiants
+            $result = $this->Authentication->getResult();
+
+            //si c'est valid
+            if($result->isValid()){
+                //welcome
+                $this->Flash->success('Bienvenue');
+                //redirection
+                $redirect = $this->request->getQuery('redirect', ['controller' => 'Posts', 'action' => 'index']);
+
+                return $this->redirect($redirect);
+            }else//sinon
+            //error
+            $this->Flash->error('Problème d\'identifiant');
+        }
     }
 
     public function new(){
-        $u = $this->Users->newEmptyEntity();
+        //entité vide
+        $new = $this->Users->newEmptyEntity();
+
+        //si on récup un form
         if($this->request->is('post')){
-            $u = $this->Users->patchEntity($u, $this->request->getData());
+            //on met les données dans l'entité
+            $new = $this->Users->patchEntity($new, $this->request->getData());
 
-            if($this->Users->save($u)){
-                $this->Flash->success('Bienvenue!');
-                return $this->redirect(['controller' => 'Festivals', 'action' => 'index']);
-            }else{
-                $this->Flash->error('Impossible de créer le compte');
+        //Si on peut sauvegarder
+        if($this->Users->save($new)){
+            //success
+            $this->Flash->success('Bienvenue');
+            //redirection
+            return $this->redirect(['controller' => 'Posts', 'action' => 'index']);
             }
+            //error
+            $this->Flash->error('Réesayer');
         }
-            $this->set(compact('u'));
-    }
-
-    public function login(){
-        $result = $this->Authentication->getResult();
-
-        //Si le user est connecté, on le dirige vers l'accueil
-        if($result->isValid()){
-            $this->Flash->success('Welcome back !');
-            return $this->redirect(['controller' => 'Festivals', 'action' => 'index']);
-        }
-        //Si on a reçu le form et que les infos ne sont pas bonnes 
-        if($this->request->is('post')&& !$result->isValid()){
-            $this->Flash->error('Identifiants incorrects');
-        }
+        //transmet à la vue
+        //autre méthode $this->set()
+        $this->set(compact('new'));
     }
 
     public function logout(){
-        $result = $this->Authentication->getResult();
-        if($result->isValid()){
+        //recup les éléments d'authentication / la cession en cours
+        $log = $this->Authentication->getResult();
+
+        //si cette cession était valide
+        if($log->isValid()){
+            //on déco
             $this->Authentication->logout();
+            //success
             $this->Flash->success('À bientôt');
         }
+        //On redirige
         return $this->redirect(['controller' => 'Festivals', 'action' => 'index']);
-
+        
     }
     
+
+    public function profil(){
+        
+        
+    
+    }
+
+
+    public function edit(){
+    }
+
+   
 }
+
+

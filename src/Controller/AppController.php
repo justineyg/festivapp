@@ -47,6 +47,7 @@ class AppController extends Controller
 
         //charge le plugin de sécurité
         $this->loadComponent('Authentication.Authentication');
+        
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
@@ -58,6 +59,7 @@ class AppController extends Controller
       parent::beforeFilter($e); 
     
           //Permettre aux actions index et view de tous les controllers d'être accessible sans être connecté
-     $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+     $this->Authentication->addUnauthenticatedActions(['index']);
         }
-}
+}   
+
