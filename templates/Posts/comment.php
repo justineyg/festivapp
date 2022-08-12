@@ -1,4 +1,6 @@
-<h2>Les commentaires</h2>
+
+
+<h1>Les commentaires</h1>
 <?php if(empty($post->comments))
 	echo '<p>Aucun commentaire pour le moment</p>';
 else { ?>

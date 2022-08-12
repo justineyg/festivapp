@@ -41,7 +41,7 @@ class PostsController extends AppController{
             //Si la sauvegarde fonctionne
             if($this->Posts->save($add)){
                 //On créé un mess de confirmation
-                $this->Flash->success('Enregistrement ok');
+                $this->Flash->success('Ajout du post');
                 //On redirige vers l'accueil
                 return $this->redirect(['action' => 'index']);
             }
@@ -129,15 +129,5 @@ class PostsController extends AppController{
 
     }
 
-    public function view($id = null){
-        //on charge la définition du model
-        $this->loadModel('Comments');
-        //on créé une entité  vide
-        $newcomment = $this->Comments->newEmptyEntity();
-
-        $this->set(compact('newcomment'));
-        
-
-        }
     
 }
