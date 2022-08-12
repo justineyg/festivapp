@@ -129,5 +129,19 @@ class PostsController extends AppController{
 
     }
 
+    public function comment($id = null){
+        //on charge la définition du model
+        $this->loadModel('Comments');
+        //on créé une entité  vide
+        $newcomment = $this->Comments->newEmptyEntity();
+
+        $this->set(compact('newcomment'));
+        
+
+        }
+
+        public function view(){
+            
+        }
     
 }
