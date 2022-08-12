@@ -36,7 +36,7 @@ class UsersController extends AppController{
     public function new(){
         //entité vide
         $new = $this->Users->newEmptyEntity();
-
+        
         //si on récup un form
         if($this->request->is('post')){
             //on met les données dans l'entité
