@@ -1,13 +1,13 @@
 <?php ?> 
 
-<h1><?= $post->user->pseudo ?></h1>
+<h1><?= $user->user->pseudo ?></h1>
 
     <div>
-            <p>Id : <?= $post->created ?></p>
-            <p>Créé : <?= $post->created ?></p>
+            <p>Id : <?= $user->created ?></p>
+            <p>Créé : <?= $user->created ?></p>
             <figure>
-                <?= $this->Html->image('post/'. $post->picture, ['alt' => $post->description_img])?>
+                <?= $this->Html->image('post/'. $user->picture, ['alt' => $user->description_img])?>
             </figure>
-            <p>Post description : <?= $post->description?></p>
+            <p>Post description : <?= $user->description?></p>
     </div>
         

@@ -1,14 +1,18 @@
 <?php ?>
 
 <h1>Modifier un post</h1>
-<?= $this->Form->create($e) ?>
+<?= $this->Form->create($e, ['type' => 'file']) ?>
 
 
-    <figure class="picture">
-                    <!--Balise img-->
-                    <?= $this->Html->image('/img/post/'.$p->picture, array("alt" => $p->description_img))?>
-                </figure>
-    <?= $this->Form->control('picture')?>
+    <!--Balise img-->
+    <?= $this->Form->control('img', [
+         'type' => 'file', 
+         'required'=>true
+         ]) ?>
+
+
+    <?= $this->Form->control('description_img')?>
+    <?= $this->Form->control('description')?>
 
     <?= $this->Form->button('Modifier') ?>
 

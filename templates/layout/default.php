@@ -28,7 +28,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'all.min', 'style']) ?>
     
     
@@ -42,8 +43,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <nav class="top-nav">
         <div class="top-nav-title">
             <a href="<?= $this->Url->build('/') ?>">
+            <figure class="picture">
+                    <!--Balise img-->
+                    <?= $this->Html->image('/img/festivapp_logo.png', ['alt' => "logo", 'class' => 'logo'])?>
+                    <?= $this->Html->image('/img/festivapp_logo_mobile.png', ['alt' => "logo", 'class' => 'logomobile'])?>
+                </figure>
             
-            <span>Cake</span>PHP</a>
         </div>
         <div class="top-nav-links">
 
@@ -71,7 +76,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 '<i class="fa-solid fa-user" aria-hidden="true"></i>', 
                 ['controller' => 'Users', 'action' => 'profil', $this->request->getAttribute('identity')->id], ['class' => 'superclasse', 'escape' => false]) ?>
                 
-            <span>Hello <?= $this->request->getAttribute('identity')->pseudo ?></span>
+            <span> <?= $this->request->getAttribute('identity')->pseudo ?></span>
             <?php endif; ?>
         </div>
     </nav>

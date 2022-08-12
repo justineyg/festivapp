@@ -79,6 +79,20 @@ class PostsController extends AppController{
         //si on est en mode reception du form
         if($this->request->is(['patch', 'patch', 'put'])){
             $e = $this->Posts->patchEntity($e, $this->request->getData());
+
+
+            $username = $this->request->getAttribute('identity')->pseudo;
+            $count = 0;
+
+            $image = $this->request->getData('img');
+
+            $ext = pathinfo($image->getClientFilename(), PATHINFO_EXTENSION);
+            $name = $username.'-'.time().$count.'.'.$ext;
+            $image->moveTo(WWW_ROOT.'img/post/'.$name);
+
+            $e->picture = $name;
+
+            $e->user_id = $this->request->getAttribute('identity')->id;
         //si la sauvegarde fonctionne
         if($this->Posts->save($e)){
 
@@ -100,18 +114,17 @@ class PostsController extends AppController{
         return $this->redirect(['action' => 'index']);
 
         //On utilise le finder dynamique findByNomDeColonne
-        $u = $this->Posts->find()
-        ->where(['User.id' => $id]) //faut préciser sinon il ne sait pas distinguer entre id de la marque ou id de la voiture
-        ->contain(['Users']);
-        
+        $p = $this->Users->find($id)
+        ->where(['User.id' => $id]); //faut préciser sinon il ne sait pas distinguer 
+       
 
         //si la reque n'a pas trouvé aucun résultart
-        if($u->isEmpty()){
+        if($p->isEmpty()){
             $this->flash->error('Sa fiche est introuvable');
             return $this->redirect(['action' => 'index']);
         }
         //On transmet la 1ère ligne de la requête à lavue
-        $this->set(['post' => $u->first()]);
+        $this->set(['user' => $p->first()]);
         //var_dump($b->first());
 
     }

@@ -1,6 +1,102 @@
+:root {
+  --yellow-right: #FFD166;
+  --black-right: #000;
+  --peach-right: #FBCEB1;
+  --blood-right: #9F410E;
+  --white-right: #FFF;
+  --white_grey-right: #f2f2f2;
+}
+
 body {
   margin: 0;
   padding: 0;
+  background-color: #FFF;
+  font-family: "Darker Grotesque";
+  font-size: 16px;
+}
+body a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body h1 {
+  font-family: "Poppins";
+  font-size: 35px;
+  margin-top: 2rem;
+}
+body a.button {
+  background-color: #9F410E;
+}
+body nav {
+  margin: 0;
+  width: 100%;
+  box-shadow: 10px 2px 5px;
+}
+body nav .logo {
+  display: none;
+}
+@media (min-width: 1200px) {
+  body nav .logo {
+    display: block;
+    width: 15%;
+  }
+}
+body nav .logomobile {
+  display: block;
+  width: 30%;
+}
+@media (min-width: 1200px) {
+  body nav .logomobile {
+    display: none;
+  }
+}
+body nav .top-nav .top-nav-links a i {
+  color: #000;
+}
+body .container {
+  max-width: 85rem;
+}
+body .container .card {
+  border: 1px solid #f2f2f2;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 472px;
+  margin: 80px auto;
+}
+body .container .card .user {
+  font-weight: bold;
+  font-size: 1.8rem;
+  padding: 0 22px 0 0;
+}
+body .container .card .card-header {
+  padding: 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body .container .card .picture {
+  display: flex;
+  margin: 0;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+body .container .card .picture img {
+  width: 470px;
+  height: 587px;
+  object-fit: cover;
+}
+body .container .card .card-footer {
+  padding: 10px;
+}
+body .container .card .card-footer hr {
+  margin: 1rem;
+}
+body .container .card .btn {
+  display: flex;
+}
+body .container #panel-button,
+body .container #pannel-button img {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

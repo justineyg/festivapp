@@ -93,10 +93,43 @@ class UsersController extends AppController{
        
     }
 
-    public function edit(){
-        
+    public function edit($id = null){
+            //si on ne connaît pas l'id du post
+            if(empty($id)){
+                //erreur
+                $this->Flash->error('Modification impossible');
+                //on retourne sur la page principale
+                return $this->redirect(['controller' => 'Posts', 'action' => 'index']);
+            }
+            //on récupère le post avec son id
+            $element = $this->Users->findById($id);
+            //si on a 0 résultat
+            if($element->isEmpty()){
+                //erreur
+                $this->Flash->error('Modification impossible');
+                //On retourne sur la page d'accueil
+                return $this->redirect(['controller' => 'Posts', 'action' => 'edit', $id]);
+            }
+    
+            //On récupère l'objet épisode
+            $e= $element->first();
+                    
+            //si on est en mode reception du form
+            if($this->request->is(['patch', 'patch', 'put'])){
+                $e = $this->Users->patchEntity($e, $this->request->getData());
+                 //si la sauvegarde fonctionne
+        if($this->Users->save($e)){
+
+            //message succes
+                $this->Flash->success('Le profil a été modifié');
+                //On redigige vers la page detail de la série à laquellel'épisode appartient
+                return $this->redirect([ 'action' => "profil", $e->post_id]);
+            }
+
+            //message erreur
+            $this->Flash->error('modification impossible');
+        }//fin test method
+
+            $this->set(compact('e'));
     }
-   
-}
-
-
+    }
